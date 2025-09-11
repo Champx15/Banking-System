@@ -7,9 +7,9 @@ public class Sbi {
         Scanner sc = new Scanner(System.in);
         Bank SBI = new Bank();
         int choice;
-        System.out.print("Enter (1: Create Account, 2: Remove Account, 3: Operations, 4: Find Account) : ");
-        choice = sc.nextInt();
         do {
+            System.out.print("Enter (1: Create Account, 2: Remove Account, 3: Operations, 4: Find Account) : ");
+            choice = sc.nextInt();
             switch (choice) {
                 case 1:
                     SBI.createAccount();
@@ -33,8 +33,6 @@ public class Sbi {
                     System.out.println("Enter a valid choice");
                     break;
             }
-            System.out.print("Enter (1: Create Account, 2: Remove Account, 3: Find Account) : ");
-            choice = sc.nextInt();
         } while (choice != 0);
     }
 
