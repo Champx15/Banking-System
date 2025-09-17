@@ -22,9 +22,11 @@ public class SavingAccount extends Account {
         double current = getBalance();
         System.out.print("Enter amount: ");
         double input = sc.nextDouble();
-        if (current < 0) {
-            setBalance(current - input);
-            System.out.print("Remaining amount is ₹" + (current - input));
+        if (current > 0) {
+            if(input>current) System.out.println("Not enough balance");
+            else {
+                setBalance(current - input);
+                System.out.print("Remaining amount is ₹" + (current - input));}
         } else
             System.out.println("Not enough balance");
     }

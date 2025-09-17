@@ -19,19 +19,21 @@ public class Bank {
         if (choice == 1) {
             SavingAccount ac = new SavingAccount(acNum, acHolder, acbalance);
             accounts.put(acNum, ac);
-            System.out.println("Accoun Created");
+            System.out.println("Account Created");
         } else if (choice == 2) {
             CurrentAccount ac = new CurrentAccount(acNum, acHolder, acbalance);
             accounts.put(acNum, ac);
-            System.out.println("Accoun Created");
+            System.out.println("Account Created");
         } else {
             System.out.println("Wrong Input");
         }
+        sc.nextLine();
 
     }
 
     public void operations() {
         System.out.print("Enter Account Number: ");
+        sc.nextLine();
         String accNumber = sc.nextLine();
         Account find = accounts.get(accNumber);
         if (find == null) {
@@ -57,8 +59,10 @@ public class Bank {
     }
 
     public void deleteAccount(String accNumber) {
-        accounts.remove(accNumber);
-        System.out.println("Account removed");
+        if(accounts.remove(accNumber)==null)
+            System.out.println("Enter a valid account number");
+        else
+            System.out.println("Account removed");
     }
 
     public void findAccount(String accNumber) {
