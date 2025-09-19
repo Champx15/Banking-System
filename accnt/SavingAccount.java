@@ -9,7 +9,6 @@ public class SavingAccount extends Account {
 
     public SavingAccount(String accntNumber, String accntHolderName, double balance) {
         super(accntNumber, accntHolderName, balance);
-        this.type = type;
     }
 
     @Override
