@@ -27,7 +27,7 @@ public class Sbi {
                     System.out.print("Enter Account Number: ");
                     sc.nextLine();
                     accN = sc.nextLine();
-                    boolean accountExist=SBI.findAccount(accN);
+                    SBI.findAccount(accN);
                     break;
                 default:
                     System.out.println("Enter a valid choice");

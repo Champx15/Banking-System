@@ -71,7 +71,7 @@ public class Bank {
     public void operations() {
         System.out.print("Enter Account Number: ");
         String accNumber = sc.nextLine();
-        boolean accountExists = findAccount(accNumber);
+        boolean accountExists = accountExists(accNumber);
         if(accountExists==true){
         System.out.print("Enter(1: Deposit, 2: Withdraw, 3: Calculate Interest) : ");
             try(Connection conn = getConnection())
@@ -115,8 +115,20 @@ public class Bank {
                     System.out.println("Error deleting account");
                 }        
     }
-
-    public boolean findAccount(String accNumber) {
+    public boolean accountExists(String accNumber) {
+            try(Connection conn = getConnection();
+                PreparedStatement stmn= conn.prepareStatement("SELECT * FROM accounts WHERE account_num=?"))
+                {   
+                    stmn.setString(1, accNumber);
+                    ResultSet resultSet = stmn.executeQuery();
+                    return resultSet.next();
+                }
+                catch(SQLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+    public void findAccount(String accNumber) {
             try(Connection conn = getConnection();
                 PreparedStatement stmn= conn.prepareStatement("SELECT * FROM accounts WHERE account_num=?"))
                 {   
@@ -127,14 +139,15 @@ public class Bank {
                     
                     System.out.println("----------------------xxxxxxx-------------------");
                     System.out.println("Account Number : "+result.getString("account_num")+"\n"+"Account Holder : "+result.getString("account_holder")+"\n"+"Balance : "+result.getDouble("balance")+"\n"+"Account Type : "+result.getString("account_type")+"\n"+"Created At : "+ result.getTimestamp("created_at"));
-                    System.out.println("----------------------xxxxxxx-------------------"); return true;}
-                    else {System.out.println("Account doesn't exist"); return false;}
+                    if(result.getString("account_type").equals("CURRENT"))
+                    System.out.println("Over Draft Limit : "+ result.getDouble("overdraft_limit"));
+                    System.out.println("----------------------xxxxxxx-------------------");}
+                    else {System.out.println("Account doesn't exist");}
                 
             }
                 catch(SQLException e) 
                 { 
                     System.out.println("Error finding account");
-                    return false;
                 }        
     }
 
