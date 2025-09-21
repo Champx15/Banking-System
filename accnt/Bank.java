@@ -6,149 +6,66 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-
 public class Bank {
-    //mysql connection
-     public static Connection getConnection()
-    {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/Bank", "root", "champ");
-        } catch (SQLException e) {
-             e.printStackTrace();
-             return null;
-        }
-    }
-
+    private DAO dao = new DAO();
     Scanner sc = new Scanner(System.in);
 
-    public void createAccount() {
-        System.out.print("Enter account Number : ");
-        String acNum = sc.nextLine();
-        System.out.print("Enter account Holder Name : ");
-        String acHolder = sc.nextLine();
-        System.out.print("Enter balance : ");
-        double acbalance = sc.nextDouble();
-        System.out.print("Account type( 1 for Savings, 2 for Current) : ");
-        int choice = sc.nextInt();
-        if (choice == 1) {
-            try(Connection conn = getConnection();
-                PreparedStatement stmn= conn.prepareStatement("INSERT INTO accounts(account_num,account_holder,balance,account_type) VALUES(?,?,?,?)"))
-                {
-                    stmn.setString(1,acNum);
-                    stmn.setString(2,acHolder);
-                    stmn.setDouble(3, acbalance);
-                    stmn.setString(4,"SAVINGS");
-                    int result = stmn.executeUpdate();
-                }
-                catch(SQLException e) 
-                { 
-                    System.out.println("Error creating account");
-                }
-
-            System.out.println("Account Created");
-        } else if (choice == 2) {
-            try(Connection conn = getConnection();
-                PreparedStatement stmn= conn.prepareStatement("INSERT INTO accounts(account_num,account_holder,balance,account_type) VALUES(?,?,?,?)"))
-                {
-                    stmn.setString(1,acNum);
-                    stmn.setString(2,acHolder);
-                    stmn.setDouble(3, acbalance);
-                    stmn.setString(4,"CURRENT");
-                    int result = stmn.executeUpdate();
-                }
-                catch(SQLException e) 
-                { 
-                    System.out.println("Error creating account");
-                }
-            System.out.println("Account Created");
-        } else {
-            System.out.println("Wrong Input");
-        }
-        sc.nextLine();
-
+    public void createAccount(Account account) {
+        double overdraft=0.00;
+        if(account.getType().equals("CURRENT")) overdraft=50000.00;
+        DAO.getConnection();
+        dao.createAccount(account, overdraft);
+        System.out.println("Account Created");
     }
-
-    public void operations() {
-        System.out.print("Enter Account Number: ");
-        String accNumber = sc.nextLine();
-        boolean accountExists = accountExists(accNumber);
-        if(accountExists==true){
+    
+    public boolean deleteAccount(String accNumber) {
+        int status = dao.deleteAccount(accNumber);
+        return (status==0)?false:true;
+    }
+    public void operations(Account account) {
         System.out.print("Enter(1: Deposit, 2: Withdraw, 3: Calculate Interest) : ");
-            try(Connection conn = getConnection())
-        {
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
                     System.out.print("Enter amount to deposit: ");
                     double amount = sc.nextDouble();
-                    Account.deposit(amount,accNumber);
+                    account.deposit(amount);
+                    dao.updateBalance(account.getBalance() ,account.getAccntNumber());
+                    System.out.println("Amount Deposited");
+                    System.out.println("Account Balance : "+account.getBalance());
                     break;
                 case 2:
-                    // find.withdraw();
+                    int status = account.withdraw(account.getBalance());
+                    if(status==1) dao.updateBalance(account.getBalance(), account.getAccntNumber());
+                    else if(status==0) System.out.println("Doesn't withdraw");
+                    else System.out.println("OK hai darling");
                     break;
                 case 3:
-                    // find.calcInterest();
+                    account.calcInterest(account.getBalance());
                 default:
                     break;
             }
         }
-        
-        catch(SQLException e) 
-        { 
-            System.out.println("Error creating account");
-        }}
-        else System.out.println("Account doesn't exist");
+
+
+    public boolean accountExists(String accNumber) 
+    {
+        return dao.accountExists(accNumber);
+    }
+    public Account findAccount(String accNumber) {
+        Account result= dao.findAccount(accNumber);
+        if(result==null) {System.out.println("Account doesn't exists"); return null;}
+        System.out.println("----------------------xxxxxxx-------------------");
+        System.out.println("Account Number : "+result.getAccntNumber()+"\n"+"Account Holder : "+result.getAccntHolderName()+"\n"+"Balance : "+result.getBalance()+"\n"+"Account Type : "+result.getType());
+        if(result.getType().equals("CURRENT")){
+            CurrentAccount account = (CurrentAccount) result;
+            System.out.println("Over Draft Limit : "+ account.getOverDraftLim());
+            System.out.println("----------------------xxxxxxx-------------------");
+            return account;
+        }
+        System.out.println("----------------------xxxxxxx-------------------");
+        return result;
     }
 
-    public void deleteAccount(String accNumber) {
-            try(Connection conn = getConnection();
-                PreparedStatement stmn= conn.prepareStatement("DELETE FROM accounts WHERE account_num=?"))
-                {
-                    stmn.setString(1, accNumber);
-                    int result = stmn.executeUpdate();
-                    if(result==0) System.out.println("Account doesn't exist");
-                    else System.out.println("Account Removed!!!");
+}    
 
-                }
-                catch(SQLException e) 
-                { 
-                    System.out.println("Error deleting account");
-                }        
-    }
-    public boolean accountExists(String accNumber) {
-            try(Connection conn = getConnection();
-                PreparedStatement stmn= conn.prepareStatement("SELECT * FROM accounts WHERE account_num=?"))
-                {   
-                    stmn.setString(1, accNumber);
-                    ResultSet resultSet = stmn.executeQuery();
-                    return resultSet.next();
-                }
-                catch(SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-    public void findAccount(String accNumber) {
-            try(Connection conn = getConnection();
-                PreparedStatement stmn= conn.prepareStatement("SELECT * FROM accounts WHERE account_num=?"))
-                {   
-                    stmn.setString(1, accNumber);
-                    ResultSet result = stmn.executeQuery();
-                    if(result.next()){
-
-                    
-                    System.out.println("----------------------xxxxxxx-------------------");
-                    System.out.println("Account Number : "+result.getString("account_num")+"\n"+"Account Holder : "+result.getString("account_holder")+"\n"+"Balance : "+result.getDouble("balance")+"\n"+"Account Type : "+result.getString("account_type")+"\n"+"Created At : "+ result.getTimestamp("created_at"));
-                    if(result.getString("account_type").equals("CURRENT"))
-                    System.out.println("Over Draft Limit : "+ result.getDouble("overdraft_limit"));
-                    System.out.println("----------------------xxxxxxx-------------------");}
-                    else {System.out.println("Account doesn't exist");}
-                
-            }
-                catch(SQLException e) 
-                { 
-                    System.out.println("Error finding account");
-                }        
-    }
-
-}
