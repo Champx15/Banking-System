@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="612d9411-6266-4509-b688-7439b0ebffa1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/CurrentAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/SavingAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ui/Sbi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sbi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/Account.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/Bank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/Bank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/CurrentAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/CurrentAccount.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/SavingAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/SavingAccount.java" beforeDir="false" />
-    </list>
+    <list default="true" id="612d9411-6266-4509-b688-7439b0ebffa1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
