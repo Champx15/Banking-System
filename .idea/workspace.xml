@@ -5,16 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612d9411-6266-4509-b688-7439b0ebffa1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Sbi.java" beforeDir="false" afterPath="$PROJECT_DIR$/Sbi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accnt/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/accnt/Bank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/CurrentAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/SavingAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ui/Sbi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sbi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/Account.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/Account.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/Bank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/CurrentAccount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/CurrentAccount.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/SavingAccount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accnt/SavingAccount.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -26,27 +48,22 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Sbi.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature",
+    "git-widget-placeholder": "hibernate",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/champ/WinPics/Code by me/Java projects/Banking System"
+    "last_opened_file_path": "/home/champ/WinPics/Code by me/Java projects/Banking System",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Banking System" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Banking System" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -57,5 +74,15 @@
       <updated>1758130643964</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.hibernate.tool.schema.spi.SchemaManagementException" package="org.hibernate.tool.schema.spi" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
