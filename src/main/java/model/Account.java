@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name= "accounts")
@@ -26,6 +28,9 @@ public abstract class Account {
 
     @Column(name="account_type",insertable = false,updatable = false)
     private String accntType;
+
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Account() {}
 

@@ -3,13 +3,14 @@ package ui;
 import model.Account;
 import model.CurrentAccount;
 import model.SavingAccount;
+import model.Transaction;
 import service.Bank;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sbi {
@@ -25,17 +26,15 @@ public class Sbi {
             switch (choice) {
 
                 case 1:
-                    System.out.print("Enter account Number : ");
-                    sc.nextLine();
-                    String acNum = sc.nextLine();
                     System.out.print("Enter account Holder Name : ");
+                    sc.nextLine();
                     String acHolder = sc.nextLine();
                     System.out.print("Enter balance : ");
                     BigDecimal acbalance = sc.nextBigDecimal();
                     System.out.print("Account type( 1 for Savings, 2 for Current) : ");
                     int type = sc.nextInt();
                     try {
-                        boolean status = SBI.createAccount(acNum, acHolder, acbalance, type);
+                        boolean status = SBI.createAccount(SBI.generateAcNum(), acHolder, acbalance, type);
                         if (status) System.out.println("Account created successfully!");
                         else System.err.println("Invalid input");
                     } catch (HibernateException e) {
@@ -83,20 +82,20 @@ public class Sbi {
                     String accNumber = sc.nextLine();
                     Account ac = SBI.findAccount(accNumber);
                     if (ac != null) {
-                        System.out.print("Enter(1: Deposit, 2: Withdraw, 3: Calculate Interest 4: Money Transfer, 0: Exit) : ");
+                        System.out.print("Enter(1: Deposit, 2: Withdraw, 3: Calculate Interest 4: Money Transfer, 5: Transaction Log, 0: Exit) : ");
                         int op = sc.nextInt();
                         switch (op) {
                             case 1:
                                 System.out.print("Enter amount to deposit: ");
                                 BigDecimal amount = sc.nextBigDecimal();
-                                SBI.deposit(accNumber,amount);
+                                SBI.deposit(ac,amount);
                                 System.out.println("Amount deopsited");
                                 System.out.println("Total balance is ₹" +ac.getBalance());
                                 break;
                             case 2:
                                 System.out.print("Enter amount to withdraw: ");
                                 amount = sc.nextBigDecimal();
-                                String message = SBI.withdraw(accNumber,amount);
+                                String message = SBI.withdraw(ac,amount);
                                 System.out.println(message);
                                 break;
                             case 3:
@@ -114,12 +113,29 @@ public class Sbi {
                                 if(status) System.out.println("₹ "+amount+" transferred successfully");
                                 else System.out.println("Money Transfer fail");
                                 break;
+                            case  5:
+                                List<model.Transaction> transactions = SBI.getTransaction(accNumber);
+                                if(!transactions.isEmpty()){
+                                    System.out.println("Account Number : " +accNumber );
+                                    System.out.println("Account Type : "+transactions.get(0).getAccount().getType());
+                                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                                    for(model.Transaction trans : transactions){
+                                        System.out.println("Transaction id : " +trans.getTransId()+"\n" + "Transaction type : " + trans.getTransType() + "\n"
+                                                + "Amount  : ₹" + trans.getAmount() + "\n" + "Transaction time  : " + trans.getTimestamp());
+                                        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                                    }
+                                }
+                                else System.err.println("No transactions related to this account");
+                                break;
                             default:
                                 break;
                         }
                     } else System.err.println("Account doesn't exist");
 
             break;
+            case 0:
+                System.out.println("Adios!! See you again");
+                break;
             default:
                 System.out.println("Enter a valid choice");
                 break;

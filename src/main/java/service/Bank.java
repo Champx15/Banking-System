@@ -4,9 +4,10 @@ import dao.Dao;
 import model.Account;
 import model.CurrentAccount;
 import model.SavingAccount;
+import model.Transaction;
 import org.hibernate.HibernateException;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 
 public class Bank {
@@ -27,6 +28,15 @@ public class Bank {
         else return false;
     }
 
+    //generate account numbers
+    public String generateAcNum()
+    {
+        long min = 10000000000L;
+        long max = 99999999999L;
+        long accN = min + (long) (Math.random() *(max-min+1));
+        return (String.valueOf(accN));
+    }
+
     //Delete account
     public boolean deleteAccount(String accNumber) throws HibernateException{
         return dao.deleteAccount(accNumber);
@@ -40,22 +50,26 @@ public class Bank {
     }
 
     //operations
-   public String withdraw(String accN,BigDecimal amount)
+    //withdraw
+   public String withdraw(Account ac,BigDecimal amount)
    {
-       Account ac = findAccount(accN);
        String str = ac.withdraw(amount);
         dao.updateBalance(ac);
+       Transaction tran = new Transaction(ac,amount,"Debit",genTranId());
+       dao.makeTransaction(tran);
         return str;
    }
 
-   public void deposit(String accN,BigDecimal amount)
+   //deposit
+   public void deposit(Account ac,BigDecimal amount)
    {
-       Account ac = findAccount(accN);
        ac.deposit(amount);
         dao.updateBalance(ac);
-
+       Transaction tran = new Transaction(ac,amount,"Credit",genTranId());
+       dao.makeTransaction(tran);
    }
 
+   //money transfer
    public boolean moneyTransfer(String sender,String receiver, BigDecimal amount)
    {
        try{
@@ -65,12 +79,30 @@ public class Bank {
        ac1.withdraw(amount);
        dao.updateBalance(ac1);
        dao.updateBalance(ac2);
-       return true;
+        Transaction tran1 = new Transaction(ac1,amount,"Debit",genTranId());
+        Transaction tran2 = new Transaction(ac2, amount, "Credit", genTranId());
+        dao.makeTransaction(tran1);
+        dao.makeTransaction(tran2);
+        return true;
        } catch (Exception e) {
            return false;
        }
 
    }
+
+   //generate transaction id
+    public String genTranId()
+    {
+        long min = 10000000000L;
+        long max = 99999999999L;
+        long tid = min + (long) (Math.random() *(max-min+1));
+        return ("T"+String.valueOf(tid));
+    }
+
+    //Get Transaction Log
+    public List<Transaction> getTransaction(String accNum){
+       return  dao.getTransaction(accNum);
+    }
 
 
 }
