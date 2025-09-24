@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="612d9411-6266-4509-b688-7439b0ebffa1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/Dao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/Bank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/Sbi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Sbi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.xml" afterDir="false" />
-    </list>
+    <list default="true" id="612d9411-6266-4509-b688-7439b0ebffa1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
